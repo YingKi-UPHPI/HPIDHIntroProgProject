@@ -9,14 +9,24 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv("Hearing well-being Survey Report.csv")
 print(df.info()) #check col. names and data types
-print(f"Dataset Shape: {df.shape}") #387 rows, 14 columns
+print(f"Dataset Shape: {df.shape}") 
+#387 rows, 14 columns
+#2 cells in Hearing_Test_Barrier has missing value
+
+print(df['Hearing_FOMO'].unique()) #Check unique answers. Seems like a cat. var.
+print(df['Age_group'].unique()) #Cat. variable (i.e factor var. in r)
 ```
 
 ```{python}
-print(df.isnull().sum()) #2 cells in Hearing_Test_Barrier has missing value
+print(df.isnull().sum()) #confirming missing value
 ```
 ```{python}
 hearingcleaned = df.copy()
+hearingcleaned = hearingcleaned.replace('â€™', "'", regex=True)
+#replace specific strange symbol with correct '
+
+hearingcleaned['Age_group'] = hearingcleaned['Age_group'].astype('category')
+#change age group to cat/factor variable
 
 ```
 
