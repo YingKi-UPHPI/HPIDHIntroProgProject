@@ -13,13 +13,15 @@ print(f"Dataset Shape: {df.shape}")
 #387 rows, 14 columns
 #2 cells in Hearing_Test_Barrier has missing value
 
-print(df['Hearing_FOMO'].unique()) #Check unique answers. Seems like a cat. var.
-print(df['Age_group'].unique()) #Cat. variable (i.e factor var. in r)
+print(df['Hearing_FOMO'].unique()) #Check unique answers. Seems ordinal
+print(df['Age_group'].unique()) #definitely ordinal
 ```
 
 ```{python}
 print(df.isnull().sum()) #confirming missing value
 ```
+
+
 ```{python}
 hearingcleaned = df.copy()
 hearingcleaned = hearingcleaned.replace('â€™', "'", regex=True)
