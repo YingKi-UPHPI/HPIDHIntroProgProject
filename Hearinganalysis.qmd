@@ -3,24 +3,25 @@ title: "Hearing Well-being Analysis"
 format: html
 editor: visual
 ---
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
+df = pd.read_csv("Hearing well-being Survey Report.csv")
+print(df.info()) #check col. names and data types
+print(f"Dataset Shape: {df.shape}") #387 rows, 14 columns
 ```
 
-You can add options to executable code like this
+```{python}
+print(df.isnull().sum()) #2 cells in Hearing_Test_Barrier has missing value
+```
+```{python}
+hearingcleaned = df.copy()
 
-```{r}
-#| echo: false
-2 * 2
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+
+
+
+
+
