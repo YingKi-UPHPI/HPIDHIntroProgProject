@@ -7,14 +7,15 @@ editor: visual
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("Hearing well-being Survey Report.csv")
-print(df.info()) #check col. names and data types
+raw = pd.read_csv("Hearing well-being Survey Report.csv")
+print(raw.info()) #check col. names and data types
 print(f"Dataset Shape: {df.shape}") 
 #387 rows, 14 columns
 #2 cells in Hearing_Test_Barrier has missing value
 
-print(df['Hearing_FOMO'].unique()) #Check unique answers. Seems ordinal
-print(df['Age_group'].unique()) #definitely ordinal
+print(raw['Hearing_FOMO'].unique()) #Check unique answers. Seems ordinal
+print(raw['Left_Out_Due_To_Hearing'].unique())
+print(raw['Age_group'].unique()) #definitely ordinal
 ```
 
 ```{python}
@@ -23,7 +24,7 @@ print(df.isnull().sum()) #confirming missing value
 
 
 ```{python}
-hearingcleaned = df.copy()
+hearingcleaned = raw.copy()
 hearingcleaned = hearingcleaned.replace('â€™', "'", regex=True)
 #replace specific strange symbol with correct '
 
