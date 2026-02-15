@@ -19,9 +19,8 @@ print(raw['Age_group'].unique()) #definitely ordinal
 ```
 
 ```{python}
-print(df.isnull().sum()) #confirming missing value
+print(raw.isnull().sum()) #confirming missing value
 ```
-
 
 ```{python}
 hearingcleaned = raw.copy()
@@ -30,10 +29,43 @@ hearingcleaned = hearingcleaned.replace('â€™', "'", regex=True)
 
 hearingcleaned['Age_group'] = hearingcleaned['Age_group'].astype('category')
 #change age group to cat/factor variable
-
 ```
 
+```{python}
+print(hearingcleaned['Missed_Important_Sounds'].value_counts())
 
+imptsound_mappingdict = {
+    "No, I usually hear things well": "No",
+    "I'm not sure, but I have felt disconnected": "Maybe",
+    "Yes, during important work or school meetings": "Yes",
+    "Yes, in public spaces (trains, shops, announcements)": "Yes",
+    "Yes, in family conversations": "Yes",
+    "I can't hear claerly when tell important information in serious situation ": "Yes",
+    "When with friends anol": "Yes",
+    "When I don't pay attention while others speak ": "Yes"    
+} #create a dict for mapping
+
+hearingcleaned['Missed_Important_Sounds_clean'] = hearingcleaned['Missed_Important_Sounds'].map(imptsound_mappingdict)
+
+hearingcleaned['Missed_Important_Sounds_clean'].value_counts()
+```
+
+```{python}
+print(hearingcleaned['Interest_in_Hearing_App'].value_counts())
+
+hearingcleaned['Interest_in_Hearing_App_clean'] = (
+    hearingcleaned['Interest_in_Hearing_App']
+    .str.split()
+    .str[0]
+    .str.strip(',')
+)
+print(hearingcleaned['Interest_in_Hearing_App_clean'].value_counts())
+```
+
+```{python}
+print(hearingcleaned['Left_Out_Due_To_Hearing'].value_counts())
+print(hearingcleaned['Daily_Headphone_Use'].value_counts())
+```
 
 
 
