@@ -62,6 +62,18 @@ hearingcleaned['Interest_in_Hearing_App_clean'] = (
 
 print(hearingcleaned['Interest_in_Hearing_App_clean'].value_counts())
 ```
+```{python}
+print(hearingcleaned['Paid_App_Test_Interest'].value_counts())
+
+hearingcleaned['Paid_App_Test_Interest_clean'] = (
+    hearingcleaned['Paid_App_Test_Interest']
+    .str.split()
+    .str[0]
+    .str.strip(',')
+)
+
+print(hearingcleaned['Paid_App_Test_Interest_clean'].value_counts())
+```
 
 ```{python}
 print(hearingcleaned['Last_Hearing_Test_Method'].value_counts())
