@@ -97,6 +97,8 @@ print(hearingcleaned['Hearing_FOMO'].value_counts())
 print(hearingcleaned['Daily_Headphone_Use'].value_counts())
 ```
 
-
-
+```{python}
+hearingcleaned.to_csv("hearing_cleaned.csv", index=False)
+#index false so pandas don't create an additional column for the hidden index
+```
 
