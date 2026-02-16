@@ -59,11 +59,29 @@ hearingcleaned['Interest_in_Hearing_App_clean'] = (
     .str[0]
     .str.strip(',')
 )
+
 print(hearingcleaned['Interest_in_Hearing_App_clean'].value_counts())
 ```
 
 ```{python}
+print(hearingcleaned['Last_Hearing_Test_Method'].value_counts())
+
+lasttest_mappingdict = {
+    "I've never taken a hearing test": "Never",
+    "At a hospital or clinic": "Clinically-tested",
+    "Mobile app": "Self-tested",
+    "Online test": "Self-tested",
+    "Self - application": "Self-tested",
+    "Self - application, Loved one, AI Support": "Self-tested"
+}
+
+hearingcleaned['Last_Hearing_Test_Method_clean'] = hearingcleaned['Last_Hearing_Test_Method'].map(lasttest_mappingdict)
+hearingcleaned['Last_Hearing_Test_Method_clean'].value_counts()
+```
+
+```{python}
 print(hearingcleaned['Left_Out_Due_To_Hearing'].value_counts())
+print(hearingcleaned['Hearing_FOMO'].value_counts())
 print(hearingcleaned['Daily_Headphone_Use'].value_counts())
 ```
 
