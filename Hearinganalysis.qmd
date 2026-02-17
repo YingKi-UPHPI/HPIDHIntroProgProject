@@ -8,6 +8,10 @@ editor: visual
 
 ```{python}
 import pandas as pd
+pd.set_option("display.max_rows", None) #show all rows
+pd.set_option("display.max_columns", None) #show all columns
+pd.set_option("display.max_colwidth", None) #make columns wide enough
+
 hearingcleaned = pd.read_csv("hearing_cleaned.csv")
 
 hearingcleaned.describe(include='all').transpose()
