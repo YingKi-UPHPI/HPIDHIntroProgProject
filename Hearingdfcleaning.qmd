@@ -3,6 +3,9 @@ title: "Hearing Well-being Analysis - Cleaning file"
 format: html
 editor: visual
 ---
+
+## Cleaning
+
 ```{python}
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -62,6 +65,7 @@ hearingcleaned['Interest_in_Hearing_App_clean'] = (
 
 print(hearingcleaned['Interest_in_Hearing_App_clean'].value_counts())
 ```
+
 ```{python}
 print(hearingcleaned['Paid_App_Test_Interest'].value_counts())
 
@@ -101,4 +105,3 @@ print(hearingcleaned['Daily_Headphone_Use'].value_counts())
 hearingcleaned.to_csv("hearing_cleaned.csv", index=False)
 #index false so pandas don't create an additional column for the hidden index
 ```
-
