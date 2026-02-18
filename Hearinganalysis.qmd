@@ -8,12 +8,49 @@ editor: visual
 
 ```{python}
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+hearingcleaned = pd.read_csv("hearing_cleaned.csv")
+
 pd.set_option("display.max_rows", None) #show all rows
 pd.set_option("display.max_columns", None) #show all columns
 pd.set_option("display.max_colwidth", None) #make columns wide enough
 
-hearingcleaned = pd.read_csv("hearing_cleaned.csv")
-
 hearingcleaned.describe(include='all').transpose()
 #transposed to see all the columns as rows
+```
+
+```{python}
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+yesmaybeno_order = ["Yes", "Maybe", "No"] #to fix order for yes, maybe & no
+yesmaybeno_colours = ["green", "steelblue", "red"]
+
+app_interest = (
+    hearingcleaned['Interest_in_Hearing_App_clean']
+    .value_counts()
+    .reindex(yesmaybeno_order)
+)
+#shown this way because code is too long
+paidapp_interest = (
+    hearingcleaned['Paid_App_Test_Interest_clean']
+    .value_counts()
+    .reindex(yesmaybeno_order)
+)
+
+ax1.bar(app_interest.index, app_interest.values, color=yesnomaybe_colours)
+ax1.set_title('Interest in a Hearing Health App', fontsize=10)
+ax1.set_xlabel('Interest Level', fontsize=10)
+ax1.set_ylabel('Number of Respondents', fontsize=10)
+
+ax2.bar(paidapp_interest.index, paidapp_interest.values, color=yesnomaybe_colours)
+ax2.set_title('Interest in a paid Hearing Health App', fontsize=10)
+ax2.set_xlabel('Interest Level', fontsize=10)
+ax2.set_ylabel('Number of Respondents', fontsize=10)
+ax2.yaxis.set_label_position("right")
+
+plt.show()
+
+
 ```

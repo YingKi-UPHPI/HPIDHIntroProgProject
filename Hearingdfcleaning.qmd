@@ -15,6 +15,10 @@ print(f"Dataset Shape: {raw.shape}")
 #387 rows, 14 columns
 #2 cells in Hearing_Test_Barrier has missing value
 
+pd.set_option("display.max_rows", None) #show all rows
+pd.set_option("display.max_columns", None) #show all columns
+pd.set_option("display.max_colwidth", None) #make columns wide enough
+
 print(raw.describe(include='all').transpose())
 #transposed to see all the columns as rows
 ```
