@@ -7,6 +7,7 @@ editor: visual
 ## placeholder
 
 ```{python}
+#| include: false #running this section to check dataset, but not showing on html output
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,6 +20,11 @@ pd.set_option("display.max_colwidth", None) #make columns wide enough
 
 hearingcleaned.describe(include='all').transpose()
 #transposed to see all the columns as rows
+```
+
+```{python}
+
+
 ```
 
 ```{python}
@@ -73,9 +79,8 @@ plt.show()
 #on hindsight, if I need to do more of the same graphs, I would create a function
 #def plot_interest_bars(data_column, ax, title, order, color)
 ```
-From Fig.1, while nearly 81% of respondents (combined 'Yes' and 'Maybe') demonstrate initial openness to a hearing health app, interest seems highly price-sensitive. Specifically, interest drops sharply from 34.9% to 12.1% for the "Yes" group when a cost is introduced. 
-Interestingly, the 'Maybe' segment remained stable at ~50%, suggesting a "wait-and-see" market that likely requires a stronger value proposition.
-Given the high general interest but low immediate willingness to pay, a freemium strategy (e.g. free screening with paid advanced features) is likely the most viable path for adoption.
+
+From Fig.1, while nearly 81% of respondents (combined 'Yes' and 'Maybe') demonstrate initial openness to a hearing health app, interest seems highly price-sensitive. Specifically, interest drops sharply from 34.9% to 12.1% for the "Yes" group when a cost is introduced. Interestingly, the 'Maybe' segment remained stable at \~50%, suggesting a "wait-and-see" market that likely requires a stronger value proposition. Given the high general interest but low immediate willingness to pay, a freemium strategy (e.g. free screening with paid advanced features) is likely the most viable path for adoption.
 
 ```{python}
 
