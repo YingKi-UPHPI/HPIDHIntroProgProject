@@ -41,15 +41,17 @@ hearingcleaned['Daily_Headphone_Use'] = pd.Categorical(
     ordered = True
 )
 #there's 3 cells with erroneoous data for this column 
-#those cell become NaNs because they don't fall into any of the categories
+#those cell will become NaNs they don't fall into the categories provided
 ageheadphoneplot = hearingcleaned.dropna(subset=['Daily_Headphone_Use'])
+#Make a temporary dataframe that drops the NaN
 
-ct = pd.crosstab(ageheadphoneplot['Age_group'], 
+ageheadphonect = pd.crosstab(ageheadphoneplot['Age_group'], 
                  ageheadphoneplot['Daily_Headphone_Use'])
+#crosstab is basically a pivot table (i.e. group + count + pivot)
 
 fig, ax = plt.subplots(figsize=(12, 6), constrained_layout = True)
 
-ct.plot(kind='bar', stacked=True, ax = ax, colormap = 'viridis')
+ageheadphonect.plot(kind='bar', stacked=True, ax = ax, colormap = 'viridis')
 plt.legend(title="Usage Duration", loc = 'upper left', bbox_to_anchor = (1.0, 1.0))
 plt.xlabel("Age Group")
 plt.ylabel("Percentage of Age Group")
