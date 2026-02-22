@@ -51,12 +51,22 @@ ageheadphonect = pd.crosstab(ageheadphoneplot['Age_group'],
 
 fig, ax = plt.subplots(figsize=(12, 6), constrained_layout = True)
 
-ageheadphonect.plot(kind='bar', stacked=True, ax = ax, colormap = 'viridis')
-plt.legend(title="Usage Duration", loc = 'upper left', bbox_to_anchor = (1.0, 1.0))
-plt.xlabel("Age Group")
-plt.ylabel("Percentage of Age Group")
-plt.xticks(rotation = 45, ha = 'right')
-plt.title("Headphone Usage by Age")
+age_group_count = ageheadphoneplot['Age_group'].value_counts()
+age_n_labels = [f"{age}\n(n={age_group_count.get(age,0)})" for age in age_order] #\n is escape char
+
+ageheadphonect.plot(kind='bar', stacked = True, ax = ax, colormap = 'viridis')
+ax.legend(title="Usage Duration", loc = 'upper left', bbox_to_anchor = (1.0, 1.0))
+ax.set_xlabel("Age Group")
+ax.set_ylabel("Count of Age Group")
+ax.set_xticks(range(len(age_order)))
+ax.set_xticklabels(age_n_labels)
+ax.set_title("Headphone Usage by Age")
+
+def getsubpercentage(valuecount):
+    total = valuecount.sum()
+    return [f"{(subgroup / total * 100):.1f}%" for subgroup in valuecount]
+#to get fstrings for percentage of each subgroup to 1 d.p
+#creating a function because I may need later
 
 fig.set_constrained_layout_pads(h_pad = 0.05) 
 #using constrained layout and setting the padding to ensure everything is shown
@@ -85,14 +95,9 @@ paid_app_interest = (
     .reindex(yesmaybeno_order)
 )
 
-def getsubpercentage(valuecount):
-    total = valuecount.sum()
-    return [f"{(subgroup / total * 100):.1f}%" for subgroup in valuecount]
-#to get fstrings for percentage of each subgroup to 1 d.p
-#creating a function because I may need later
-
 general_interest_percentage = getsubpercentage(general_app_interest)
 paid_interest_percentage = getsubpercentage(paid_app_interest)
+#use previously defined function
 
 gen_bargraph = ax1.bar(general_app_interest.index, general_app_interest.values, color=yesmaybeno_colours)
 ax1.set_title('Interest in a Hearing Health App', fontsize = 8)
