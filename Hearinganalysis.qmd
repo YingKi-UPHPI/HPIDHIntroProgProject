@@ -24,9 +24,41 @@ hearingcleaned.describe(include='all').transpose()
 #transposed to see all the columns as rows
 ```
 
-## placeholder
+## Headphone Usage by Age
 ```{python}
+age_order = ['Under 18', '18 - 24', '25 - 34', '35 - 44', '45 - 54', '55 - 64']
+headphone_usage_order = ['Less than 1 hour', '1-2 hours', '2-4 hours', 'More than 4 hours']
 
+hearingcleaned['Age_group'] = pd.Categorical(
+    hearingcleaned['Age_group'], 
+    categories = age_order, 
+    ordered = True
+)
+
+hearingcleaned['Daily_Headphone_Use'] = pd.Categorical(
+    hearingcleaned['Daily_Headphone_Use'], 
+    categories = headphone_usage_order, 
+    ordered = True
+)
+#there's 3 cells with erroneoous data for this column 
+#those cell become NaNs because they don't fall into any of the categories
+ageheadphoneplot = hearingcleaned.dropna(subset=['Daily_Headphone_Use'])
+
+ct = pd.crosstab(ageheadphoneplot['Age_group'], 
+                 ageheadphoneplot['Daily_Headphone_Use'])
+
+fig, ax = plt.subplots(figsize=(12, 6), constrained_layout = True)
+
+ct.plot(kind='bar', stacked=True, ax = ax, colormap = 'viridis')
+plt.legend(title="Usage Duration", loc = 'upper left', bbox_to_anchor = (1.0, 1.0))
+plt.xlabel("Age Group")
+plt.ylabel("Percentage of Age Group")
+plt.xticks(rotation = 45, ha = 'right')
+plt.title("Headphone Usage by Age")
+
+fig.set_constrained_layout_pads(h_pad = 0.05) 
+#using constrained layout and setting the padding to ensure everything is shown
+plt.show()
 
 ```
 
@@ -34,7 +66,7 @@ hearingcleaned.describe(include='all').transpose()
 
 ## Analysing interest & willingness to pay for hearing health app
 ```{python}
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 8), constrained_layout=True)
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize = (14, 8), constrained_layout = True)
 
 yesmaybeno_order = ["Yes", "Maybe", "No"] #to fix order for yes, maybe & no
 yesmaybeno_colours = ["green", "steelblue", "red"]
@@ -78,7 +110,8 @@ fig.supxlabel("Interest Level", fontsize = 12)
 fig.supylabel("Number of Respondents", fontsize = 12)
 fig.suptitle("Fig.1 - Interest in a Hearing Health App: General vs. Paid (n=387)", fontsize = 12)
 
-fig.set_constrained_layout_pads(h_pad=0.05) #my super x label was getting cut off, so I am setting the padding
+fig.set_constrained_layout_pads(h_pad = 0.05) 
+#using constrained layout and setting the padding to ensure everything is shown
 
 plt.show()
 
