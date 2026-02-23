@@ -18,9 +18,10 @@ print(f"Dataset Shape: {raw.shape}")
 pd.set_option("display.max_rows", None) #show all rows
 pd.set_option("display.max_columns", None) #show all columns
 pd.set_option("display.max_colwidth", None) #make columns wide enough
+#Doing all these to show everything below
 
-print(raw.describe(include='all').transpose())
-#transposed to see all the columns as rows
+print(raw.describe(include = 'all').transpose())
+#transposed to see all the columns as row
 ```
 
 ```{python}
@@ -35,7 +36,7 @@ print(raw.isnull().sum()) #confirming missing value
 
 ```{python}
 hearingcleaned = raw.copy()
-hearingcleaned = hearingcleaned.replace('â€™', "'", regex=True)
+hearingcleaned = hearingcleaned.replace('â€™', "'", regex = True)
 #replace specific strange symbol with correct '
 
 hearingcleaned['Age_group'] = hearingcleaned['Age_group'].astype('category')
