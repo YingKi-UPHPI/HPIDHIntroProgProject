@@ -16,6 +16,7 @@ format:
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from wordcloud import WordCloud
 
 hearingcleaned = pd.read_csv("hearing_cleaned.csv")
 
@@ -27,7 +28,7 @@ hearingcleaned.describe(include='all').transpose()
 #transposed to see all the columns as rows
 ```
 
-## Analysing Headphone Usage by Age
+## 1 -Analysing Headphone Usage by Age
 ```{python}
 age_order = ['Under 18', '18 - 24', '25 - 34', '35 - 44', '45 - 54', '55 - 64']
 headphone_usage_order = ['Less than 1 hour', '1-2 hours', '2-4 hours', 'More than 4 hours']
@@ -74,6 +75,8 @@ demonstrates a sufficiently robust sample size (n = 284) to serve as the primary
 analytical base. While the '35–44' cohort follows with a sample size of n = 30, 
 it was excluded from the baseline to maintain a more focused analysis.
 
+{{< pagebreak >}}
+
 ```{python}
 young_adults_age_headphone = (
     ageheadphoneplot[ageheadphoneplot['Age_group'] == '18 - 24'] #slice
@@ -110,12 +113,12 @@ fig.set_constrained_layout_pads(h_pad = 0.05)
 plt.show()
 
 ```
-Seems like 
-
+Fig. 2 shows the the daily headphone usage of young adults. Most fall into the 
+1-2 hour range. 
 
 {{< pagebreak >}}
 
-## Analysing Headphone Usage by Important Sounds Missed
+## 2 - Analysing Headphone Usage by Important Sounds Missed
 ```{python}
 young_adults_only = hearingcleaned[hearingcleaned['Age_group'] == '18 - 24']
 yesmaybeno_order = ["Yes", "Maybe", "No"] #to fix order for yes, maybe & no
@@ -139,13 +142,13 @@ missed_sounds_18_24_table = (
 #round to 1 d.p and add %
 missed_sounds_18_24_table
 ```
-### Table 1 - Headphone Usage by Important Sounds Missed (n = 284)
+##### Table 1 - Headphone Usage by Important Sounds Missed (n = 284)
 From Table 1, it suggests that a higher frequency usage of headphone do not
 increase the frequency of missing important sounds. In fact, there seems to be a 
 reduced frequency of missing important sounds with higher frequency usage of 
 headphone. Deeper analysis (e.g. Chi Square) needs to be done.
 
-## Analysing Headphone Usage by Belief To Care For Hearing Early
+## 3 - Analysing Headphone Usage by Belief To Care For Hearing Early
 ```{python}
 belief_18_24 = (
     young_adults_only.groupby('Daily_Headphone_Use', observed=False)['Belief_Early_Hearing_Care']
@@ -158,14 +161,14 @@ belief_18_24 = (
 
 belief_18_24
 ```
-### Table 2 - Headphone Usage vs. Belief for Early Hearing Care (n = 284)
+##### Table 2 - Headphone Usage vs. Belief for Early Hearing Care (n = 284)
 From Table 2, it suggests that a higher frequency usage of headphone do not
 increase belief for early hearing care. We can do a one-way ANOVA to compare 
 means (not in this report).
 
 {{< pagebreak >}}
 
-## Analysing interest & willingness to pay for hearing health app
+## 4 - Analysing interest & willingness to pay for hearing health app
 ```{python}
 yesmaybeno_order = ["Yes", "Maybe", "No"] #to fix order for yes, maybe & no
 yesmaybeno_colours = ["green", "steelblue", "red"]
@@ -235,7 +238,52 @@ advanced features) is likely the most viable path for adoption.
 
 {{< pagebreak >}}
 
-## placeholder
+## 5 - Analysis of Desired App Features for Hearing Health
 ```{python}
+desired_feature_18_24 = " ".join(young_adults_only['Desired_App_Features'])
+# smashing individual responses into one massive paragraph so the Word Cloud
+#wordcloud can ignore punctuations
 
+wordcloud_desired = WordCloud(
+    collocations = True, # Keeps phrases like "Noise Cancellation" together
+    background_color = "white", 
+    max_words = 10
+    ).generate(desired_feature_18_24)
+#lesser words, more emphasis on top words
+
+plt.figure(figsize = (8, 5))
+plt.imshow(wordcloud_desired) #show image for wordcloud
+plt.axis("off")  # Hide x and y numbers because we are using plt
+plt.title("Fig 4. - Wordcloud of Desired App Features for Hearing Health", fontsize = 14)
+plt.show()
 ```
+```{python}
+feature_counts_dict = {} #dict for easier tally. Key + value
+
+for row in young_adults_only['Desired_App_Features']:
+    items = row.split(',')
+    for item in items:
+        feature_clean = item.strip().lower() #remove spcace + make lowercase
+        if feature_clean in feature_counts_dict:
+            feature_counts_dict[feature_clean] += 1 #add tally
+        else:
+            feature_counts_dict[feature_clean] = 1 #new word 
+
+sort_features = sorted(feature_counts_dict.items(), key = lambda x: x[1], reverse = True)
+#sort based on value, reverse for top
+top_5 = sort_features[:5]
+
+top_5_names = [item[0].title() for item in top_5]
+top_5_counts = [item[1] for item in top_5] #just the count
+top_5_perc = [(count / 284) * 100 for count in top_5_counts] 
+top_5_table = pd.DataFrame({
+    'Top 5 Features': top_5_names, 
+    'Mentions (n)': top_5_counts,
+    'Percentage (%)': top_5_perc
+})
+#DF for better presentation
+top_5_table
+```
+##### Table 3 - Top 5 Features 
+From Fig. 4, and Table 3, the most desired features is a quick hearing test,
+remote doctor consultation and gamified interaction.
