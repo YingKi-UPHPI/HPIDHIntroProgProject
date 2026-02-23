@@ -160,8 +160,8 @@ belief_18_24
 ```
 ### Table 2 - Headphone Usage vs. Belief for Early Hearing Care (n = 284)
 From Table 2, it suggests that a higher frequency usage of headphone do not
-increase belief for early hearing care.
-
+increase belief for early hearing care. We can do a one-way ANOVA to compare 
+means (not in this report).
 
 {{< pagebreak >}}
 

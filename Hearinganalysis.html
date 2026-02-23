@@ -2257,7 +2257,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="analysing-headphone-usage-by-age" class="level2">
 <h2 class="anchored" data-anchor-id="analysing-headphone-usage-by-age">Analysing Headphone Usage by Age</h2>
-<div id="2fd9ca56" class="cell" data-execution_count="2">
+<div id="3f2b5ce6" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>age_order <span class="op">=</span> [<span class="st">&#39;Under 18&#39;</span>, <span class="st">&#39;18 - 24&#39;</span>, <span class="st">&#39;25 - 34&#39;</span>, <span class="st">&#39;35 - 44&#39;</span>, <span class="st">&#39;45 - 54&#39;</span>, <span class="st">&#39;55 - 64&#39;</span>]</span>
@@ -2308,7 +2308,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 <p>From Fig.1, the ‘18–24’ age group (hereafter referred to as young adults) demonstrates a sufficiently robust sample size (n = 284) to serve as the primary analytical base. While the ‘35–44’ cohort follows with a sample size of n = 30, it was excluded from the baseline to maintain a more focused analysis.</p>
-<div id="a185fabf" class="cell" data-execution_count="3">
+<div id="9159dfb5" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>young_adults_age_headphone <span class="op">=</span> (</span>
@@ -2358,7 +2358,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="analysing-headphone-usage-by-important-sounds-missed" class="level2">
 <h2 class="anchored" data-anchor-id="analysing-headphone-usage-by-important-sounds-missed">Analysing Headphone Usage by Important Sounds Missed</h2>
-<div id="4bad92fe" class="cell" data-execution_count="4">
+<div id="5dddda9e" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>young_adults_only <span class="op">=</span> hearingcleaned[hearingcleaned[<span class="st">&#39;Age_group&#39;</span>] <span class="op">==</span> <span class="st">&#39;18 - 24&#39;</span>]</span>
@@ -2440,22 +2440,20 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="analysing-headphone-usage-by-belief-to-care-for-hearing-early" class="level2">
 <h2 class="anchored" data-anchor-id="analysing-headphone-usage-by-belief-to-care-for-hearing-early">Analysing Headphone Usage by Belief To Care For Hearing Early</h2>
-<div id="7ba0ea18" class="cell" data-execution_count="5">
+<div id="31a700c5" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>belief_correlation <span class="op">=</span> (</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    young_adults_only.groupby(<span class="st">&#39;Daily_Headphone_Use&#39;</span>)[<span class="st">&#39;Belief_Early_Hearing_Care&#39;</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    .reindex(headphone_usage_order)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    .to_frame(name<span class="op">=</span><span class="st">&#39;Average Belief Score (1-5)&#39;</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>belief_correlation</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>belief_18_24 <span class="op">=</span> (</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    young_adults_only.groupby(<span class="st">&#39;Daily_Headphone_Use&#39;</span>, observed<span class="op">=</span><span class="va">False</span>)[<span class="st">&#39;Belief_Early_Hearing_Care&#39;</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#I am getting a Future Warning error for observed=False being deprecated</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    .reindex(headphone_usage_order)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    .to_frame(name <span class="op">=</span> <span class="st">&#39;Average Belief Score (1-5)&#39;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#to_frame to convert a series of values into a DF for better presentation</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>belief_18_24</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/8g/c2hfkrsn0r5dl1kfkgl8qvr40000gn/T/ipykernel_5778/3748891235.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
-  young_adults_only.groupby(&#39;Daily_Headphone_Use&#39;)[&#39;Belief_Early_Hearing_Care&#39;]</code></pre>
-</div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
@@ -2494,72 +2492,73 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 </div>
-<section id="table-2---headphone-usage-vs.-belief-to-care-for-hearing-early-n-284" class="level3">
-<h3 class="anchored" data-anchor-id="table-2---headphone-usage-vs.-belief-to-care-for-hearing-early-n-284">Table 2 - Headphone Usage vs. Belief To Care For Hearing Early (n = 284)</h3>
+<section id="table-2---headphone-usage-vs.-belief-for-early-hearing-care-n-284" class="level3">
+<h3 class="anchored" data-anchor-id="table-2---headphone-usage-vs.-belief-for-early-hearing-care-n-284">Table 2 - Headphone Usage vs. Belief for Early Hearing Care (n = 284)</h3>
+<p>From Table 2, it suggests that a higher frequency usage of headphone do not increase belief for early hearing care. We can do a one-way ANOVA to compare means (not in this report).</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="analysing-interest-willingness-to-pay-for-hearing-health-app" class="level2">
 <h2 class="anchored" data-anchor-id="analysing-interest-willingness-to-pay-for-hearing-health-app">Analysing interest &amp; willingness to pay for hearing health app</h2>
-<div id="b55c13dd" class="cell" data-execution_count="6">
+<div id="ad53a029" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>yesmaybeno_order <span class="op">=</span> [<span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;Maybe&quot;</span>, <span class="st">&quot;No&quot;</span>] <span class="co">#to fix order for yes, maybe &amp; no</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>yesmaybeno_colours <span class="op">=</span> [<span class="st">&quot;green&quot;</span>, <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;red&quot;</span>]</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>general_app_interest_18_24 <span class="op">=</span> (</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    young_adults_only[<span class="st">&#39;Interest_in_Hearing_App_clean&#39;</span>]</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    .reindex(yesmaybeno_order)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#showing code this way because code is too long</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>paid_app_interest_18_24 <span class="op">=</span> (</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    young_adults_only[<span class="st">&#39;Paid_App_Test_Interest_clean&#39;</span>]</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    .reindex(yesmaybeno_order)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>general_interest_percentage <span class="op">=</span> getsubpercentage(general_app_interest_18_24)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>paid_interest_percentage <span class="op">=</span> getsubpercentage(paid_app_interest_18_24)</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#use previously defined function</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>), constrained_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>gen_bargraph <span class="op">=</span> ax1.bar(</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    general_app_interest_18_24.index, </span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    general_app_interest_18_24.values, </span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>yesmaybeno_colours</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">&#39;Interest in a Hearing Health App&#39;</span>, fontsize <span class="op">=</span> <span class="dv">8</span>)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>ax1.bar_label(gen_bargraph, labels<span class="op">=</span>general_interest_percentage, fontsize <span class="op">=</span> <span class="dv">8</span>)</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.set_xlabel(&#39;Interest Level&#39;, fontsize=10)</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.set_ylabel(&#39;Number of Respondents&#39;, fontsize=10)</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>paid_bargraph <span class="op">=</span> ax2.bar(</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    paid_app_interest_18_24.index, </span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    paid_app_interest_18_24.values, </span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>yesmaybeno_colours</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">&#39;Interest in a paid Hearing Health App&#39;</span>, fontsize <span class="op">=</span> <span class="dv">8</span>)</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>ax2.bar_label(paid_bargraph, labels<span class="op">=</span>paid_interest_percentage, fontsize <span class="op">=</span> <span class="dv">8</span>)</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.set_xlabel(&#39;Interest Level&#39;, fontsize=10)</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.set_ylabel(&#39;Number of Respondents&#39;, fontsize=10)</span></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.yaxis.set_label_position(&quot;right&quot;)</span></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co">#using global labels instead, as labels are the same between the 2 graphs</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>fig.supxlabel(<span class="st">&quot;Interest Level&quot;</span>, fontsize <span class="op">=</span> <span class="dv">12</span>)</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>fig.supylabel(<span class="st">&quot;Number of Respondents&quot;</span>, fontsize <span class="op">=</span> <span class="dv">12</span>)</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">&quot;Fig.3 - Young Adults&#39; Interest in a Hearing Health App: General vs. Paid (n=284)&quot;</span>, fontsize <span class="op">=</span> <span class="dv">12</span>)</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>fig.set_constrained_layout_pads(h_pad <span class="op">=</span> <span class="fl">0.05</span>) </span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co">#using constrained layout and setting the padding to ensure everything is shown</span></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co">#on hindsight, if I need to do more of the same graphs, I would create a function</span></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="co">#def plot_interest_bars(data_column, ax, title, order, color)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>yesmaybeno_order <span class="op">=</span> [<span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;Maybe&quot;</span>, <span class="st">&quot;No&quot;</span>] <span class="co">#to fix order for yes, maybe &amp; no</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>yesmaybeno_colours <span class="op">=</span> [<span class="st">&quot;green&quot;</span>, <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;red&quot;</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>general_app_interest_18_24 <span class="op">=</span> (</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    young_adults_only[<span class="st">&#39;Interest_in_Hearing_App_clean&#39;</span>]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    .reindex(yesmaybeno_order)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#showing code this way because code is too long</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>paid_app_interest_18_24 <span class="op">=</span> (</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    young_adults_only[<span class="st">&#39;Paid_App_Test_Interest_clean&#39;</span>]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    .reindex(yesmaybeno_order)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>general_interest_percentage <span class="op">=</span> getsubpercentage(general_app_interest_18_24)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>paid_interest_percentage <span class="op">=</span> getsubpercentage(paid_app_interest_18_24)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#use previously defined function</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">5</span>), constrained_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>gen_bargraph <span class="op">=</span> ax1.bar(</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    general_app_interest_18_24.index, </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    general_app_interest_18_24.values, </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>yesmaybeno_colours</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">&#39;Interest in a Hearing Health App&#39;</span>, fontsize <span class="op">=</span> <span class="dv">8</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>ax1.bar_label(gen_bargraph, labels<span class="op">=</span>general_interest_percentage, fontsize <span class="op">=</span> <span class="dv">8</span>)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.set_xlabel(&#39;Interest Level&#39;, fontsize=10)</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#ax1.set_ylabel(&#39;Number of Respondents&#39;, fontsize=10)</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>paid_bargraph <span class="op">=</span> ax2.bar(</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    paid_app_interest_18_24.index, </span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    paid_app_interest_18_24.values, </span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>yesmaybeno_colours</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">&#39;Interest in a paid Hearing Health App&#39;</span>, fontsize <span class="op">=</span> <span class="dv">8</span>)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>ax2.bar_label(paid_bargraph, labels<span class="op">=</span>paid_interest_percentage, fontsize <span class="op">=</span> <span class="dv">8</span>)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.set_xlabel(&#39;Interest Level&#39;, fontsize=10)</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.set_ylabel(&#39;Number of Respondents&#39;, fontsize=10)</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">#ax2.yaxis.set_label_position(&quot;right&quot;)</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co">#using global labels instead, as labels are the same between the 2 graphs</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>fig.supxlabel(<span class="st">&quot;Interest Level&quot;</span>, fontsize <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>fig.supylabel(<span class="st">&quot;Number of Respondents&quot;</span>, fontsize <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">&quot;Fig.3 - Young Adults&#39; Interest in a Hearing Health App: General vs. Paid (n=284)&quot;</span>, fontsize <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>fig.set_constrained_layout_pads(h_pad <span class="op">=</span> <span class="fl">0.05</span>) </span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="co">#using constrained layout and setting the padding to ensure everything is shown</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="co">#on hindsight, if I need to do more of the same graphs, I would create a function</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="co">#def plot_interest_bars(data_column, ax, title, order, color)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
