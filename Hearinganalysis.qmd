@@ -1,6 +1,8 @@
 ---
 title: "Hearing Well-being Analysis - Main Analysis file"
 author: "Ying Ki"
+subtitle: 
+    "Note: Generative AI was used mainly as a faster form of Googling"
 date: last-modified
 format: 
   html:
@@ -9,7 +11,8 @@ format:
     code-summary: "Show the code"
 ---
 ```{python}
-#| include: false #running this section to check dataset, but not showing on html output
+#| include: false 
+#running this section to check dataset, but not showing on html output
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -58,7 +61,6 @@ ageheadphonect.plot(kind='bar', stacked = True, ax = ax, colormap = 'viridis')
 ax.legend(title="Usage Duration", loc = 'upper left', bbox_to_anchor = (1.0, 1.0))
 ax.set_xlabel("Age Group")
 ax.set_ylabel("Count of Age Group")
-ax.set_xticks(range(len(age_order)))
 ax.set_xticklabels(age_n_labels)
 ax.set_title("Headphone Usage by Age")
 
