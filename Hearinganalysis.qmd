@@ -143,7 +143,25 @@ missed_sounds_18_24_table
 From Table 1, it suggests that a higher frequency usage of headphone do not
 increase the frequency of missing important sounds. In fact, there seems to be a 
 reduced frequency of missing important sounds with higher frequency usage of 
-headphone.
+headphone. Deeper analysis (e.g. Chi Square) needs to be done.
+
+## Analysing Headphone Usage by Belief To Care For Hearing Early
+```{python}
+belief_18_24 = (
+    young_adults_only.groupby('Daily_Headphone_Use', observed=False)['Belief_Early_Hearing_Care']
+    #I am getting a Future Warning error for observed=False being deprecated
+    .mean()
+    .reindex(headphone_usage_order)
+    .to_frame(name = 'Average Belief Score (1-5)')
+)
+#to_frame to convert a series of values into a DF for better presentation
+
+belief_18_24
+```
+### Table 2 - Headphone Usage vs. Belief for Early Hearing Care (n = 284)
+From Table 2, it suggests that a higher frequency usage of headphone do not
+increase belief for early hearing care.
+
 
 {{< pagebreak >}}
 
