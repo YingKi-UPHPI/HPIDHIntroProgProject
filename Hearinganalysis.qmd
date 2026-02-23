@@ -7,12 +7,11 @@ date: last-modified
 format: 
   html:
     embed-resources: true
-    code-fold: true   # "safety net" for echo: false
+    code-fold: true 
     code-summary: "Show the code"
 ---
 ```{python}
-#| include: false 
-#running this section to check dataset, but not showing on html output
+#| output: false 
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -24,9 +23,17 @@ pd.set_option("display.max_rows", None) #show all rows
 pd.set_option("display.max_columns", None) #show all columns
 pd.set_option("display.max_colwidth", None) #make columns wide enough
 
+#running this code just to check dataset, but not showing on html output
 hearingcleaned.describe(include='all').transpose()
 #transposed to see all the columns as rows
 ```
+## Introduction
+The Hearing Wellness Survey 2025 investigates the intersection of modern 
+auditory habits and digital health adoption. This analysis focuses on the 18–24 
+demographic to evaluate how prolonged personal audio use correlates with early 
+signs of auditory strain (e.g. self-reported missing of important sounds) and 
+the interest for mobile health interventions.
+
 
 ## 1 -Analysing Headphone Usage by Age
 ```{python}
@@ -137,16 +144,17 @@ missed_sounds_18_24_pct = missed_sounds_18_24_ct.div(missed_sounds_18_24_ct.sum(
 missed_sounds_18_24_table = (
     missed_sounds_18_24_pct.map(lambda x: f"{x:.1f}%")
     .rename_axis("Daily Usage Duration", axis = 0)
-    .rename_axis("Missed Important Sounds?", axis = 1)
+    .rename_axis("Missed Important Sounds? (self-reported general sentiments)", axis = 1)
 )
 #round to 1 d.p and add %
 missed_sounds_18_24_table
 ```
 ##### Table 1 - Headphone Usage by Important Sounds Missed (n = 284)
 From Table 1, it suggests that a higher frequency usage of headphone do not
-increase the frequency of missing important sounds. In fact, there seems to be a 
-reduced frequency of missing important sounds with higher frequency usage of 
-headphone. Deeper analysis (e.g. Chi Square) needs to be done.
+increase the frequency of missing important sounds (self-reported general 
+sentiments). In fact, there seems to be a reduced frequency of missing important
+sounds with higher frequency usage of headphone. 
+Deeper analysis (e.g. Chi Square) needs to be done.
 
 ## 3 - Analysing Headphone Usage by Belief To Care For Hearing Early
 ```{python}
@@ -241,8 +249,10 @@ advanced features) is likely the most viable path for adoption.
 ## 5 - Analysis of Desired App Features for Hearing Health
 ```{python}
 desired_feature_18_24 = " ".join(young_adults_only['Desired_App_Features'])
-# smashing individual responses into one massive paragraph so the Word Cloud
+#smashing individual responses into one massive paragraph so the Word Cloud
 #wordcloud can ignore punctuations
+#desired_feature_18_24 = desired_feature_18_24.replace("Game-Based Interaction", "Game Based Interaction")
+#I can't seem to keep this phrase together. Marking a note here.
 
 wordcloud_desired = WordCloud(
     collocations = True, # Keeps phrases like "Noise Cancellation" together
